@@ -1,0 +1,19 @@
+# Node
+node_modules/
+npm-debug.log
+
+# Windows basura
+Thumbs.db
+Desktop.ini
+
+# Apps & Secrets
+.env
+backend/config/*.json
+backend/uploads/*
+!backend/uploads/.gitkeep
+*.pdf
+
+# Docker & Build
+dist/
+build/
+secrets/

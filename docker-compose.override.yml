@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  server:
+    environment:
+      NODE_ENV: development
+      DB_HOST: db
+    # Aquí agregamos el hot-reload que solo querés en tu PC
+    command: npm run dev
+    
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    depends_on:
+      - db
+    secrets:
+      - db_user
+      - db_password
+      - db_name
+
+  frontend:
+    build:
+      context: ./frontend
+      target: development
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:3001/api
+
+  db:
+    container_name: mpx-db
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER_FILE: /run/secrets/db_user
+      POSTGRES_PASSWORD_FILE: /run/secrets/db_password
+      POSTGRES_DB_FILE: /run/secrets/db_name
+    secrets:
+      - db_user
+      - db_password
+      - db_name
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - web_network
+
+networks:
+  web_network:
+    external: false
+
+volumes:
+  pg_data:
+
+secrets:
+  db_user:
+    file: ./secrets/db_user.txt
+  db_password:
+    file: ./secrets/db_password.txt
+  db_name:
+    file: ./secrets/db_name.txt
