@@ -31,7 +31,7 @@ services:
       - VITE_API_URL=http://localhost:3001/api
 
   db:
-    container_name: mpx-db
+    container_name: yabt-db
     image: postgres:15-alpine
     environment:
       POSTGRES_USER_FILE: /run/secrets/db_user

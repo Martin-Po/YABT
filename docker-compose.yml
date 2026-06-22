@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   server:
-    container_name: mpx-backend
+    container_name: yabt-backend
     build:
       context: ./backend
       dockerfile: Dockerfile
