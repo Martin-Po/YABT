@@ -3,6 +3,8 @@ const { getDb } = require("./db");
 const logger = require('./logger');
 const { initUsers } = require('./db-init/init-users');
 const { initEstados } = require('./db-init/init-estados');
+const { initCuentas } = require('./db-init/init-cuentas');
+const { initMonedas } = require('./db-init/init-monedas');
 
 async function initializeDBIfEmpty() {
 
@@ -24,6 +26,8 @@ async function initializeDBIfEmpty() {
     const initSteps = [
       { name: 'initEstados', fn: initEstados },
       { name: 'initUsers', fn: initUsers },
+      { name: 'initMonedas', fn: initMonedas },
+      { name: 'initCuentas', fn: initCuentas },
     ];
 
     connection = await getDb();
