@@ -13,7 +13,7 @@ const monedasConfig = {
     `,
     createTableQuery: `
         CREATE TABLE monedas (
-            id                 SERIAL PRIMARY KEY,
+            id                 UUID PRIMARY KEY DEFAULT gen_random_uuid(),
             descripcion        VARCHAR(255) NOT NULL,
             simbolo            VARCHAR(10) NOT NULL,
             estado             estado_moneda NOT NULL DEFAULT 'activo',                    
@@ -23,10 +23,10 @@ const monedasConfig = {
         );
     `,
     seeds: {
-        insertQuery: `INSERT INTO monedas (descripcion, simbolo, estado) VALUES ($1, $2, $3);`,
+        insertQuery: `INSERT INTO monedas (id, descripcion, simbolo, estado) VALUES ($1, $2, $3, $4);`,
         rows: [
-            ['Dólar', 'USD', 'activo'],
-            ['Peso', 'ARS', 'activo']
+            ['00000000-0000-0000-0000-000000000001', 'Dólar', 'USD', 'activo'],
+            ['00000000-0000-0000-0000-000000000002', 'Peso', 'ARS', 'activo']
         ]
     }
 };

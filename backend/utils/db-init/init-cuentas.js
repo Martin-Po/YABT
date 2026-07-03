@@ -14,7 +14,7 @@ const cuentasConfig = {
     createTableQuery: `
         CREATE TABLE cuentas (
             id                 UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            moneda             INTEGER NOT NULL REFERENCES monedas(id) ON DELETE RESTRICT ON UPDATE CASCADE,
+            moneda             UUID NOT NULL REFERENCES monedas(id) ON DELETE RESTRICT ON UPDATE CASCADE,
             descripcion        VARCHAR(255) NOT NULL,
             balance            NUMERIC(15, 2) NOT NULL DEFAULT 0.00,
             estado             estado_cuenta NOT NULL DEFAULT 'activo',          
@@ -25,12 +25,12 @@ const cuentasConfig = {
     `,
     seeds: {
         insertQuery: `
-            INSERT INTO cuentas (moneda, descripcion, balance, estado)
-            VALUES ($1, $2, $3, $4);
+            INSERT INTO cuentas (id, moneda, descripcion, balance, estado)
+            VALUES ($1, $2, $3, $4, $5);
         `,
         rows: [
-            [1, 'Cuenta de prueba 1', 1000.00, 'activo'],
-            [2, 'Cuenta de prueba 2', 500.00, 'activo']
+            ['00000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000001', 'Cuenta de prueba 1', 1000.00, 'activo'],
+            ['00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000002', 'Cuenta de prueba 2', 500.00, 'activo']
         ]
     }
 };

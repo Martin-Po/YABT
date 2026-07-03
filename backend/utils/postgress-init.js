@@ -5,6 +5,17 @@ const { initUsers } = require('./db-init/init-users');
 const { initEstados } = require('./db-init/init-estados');
 const { initCuentas } = require('./db-init/init-cuentas');
 const { initMonedas } = require('./db-init/init-monedas');
+const { initCategorias } = require('./db-init/init-categorias');
+const { initSubsubcategorias } = require('./db-init/init-subcategorias');
+const { initUsuariosXcuenta } = require('./db-init/init-usuariosXcuenta');
+const { initComercios } = require('./db-init/init-comercios');
+const { initCuotaGrupos } = require('./db-init/init-cuotaGrupos');
+const { initMovimientos } = require('./db-init/init-movimientos');
+const { initTiposProducto } = require('./db-init/init-tipoproducto');
+const { initProductos } = require('./db-init/init-productos');
+const { initItemXmovimientos } = require('./db-init/init-itemsXmovimiento');
+const { initCategoriasXmovimiento } = require('./db-init/init-categoriasXmovimiento');
+const { initSubcategoriasXmovimiento } = require('./db-init/init-subcategoriasXmovimiento');
 
 async function initializeDBIfEmpty() {
 
@@ -28,6 +39,18 @@ async function initializeDBIfEmpty() {
       { name: 'initUsers', fn: initUsers },
       { name: 'initMonedas', fn: initMonedas },
       { name: 'initCuentas', fn: initCuentas },
+      { name: 'initCategorias', fn: initCategorias },
+      { name: 'initSubCategorias', fn: initSubsubcategorias },
+      { name: 'initUsuariosXCuenta', fn: initUsuariosXcuenta },
+      { name: 'initComercios', fn: initComercios },
+      { name: 'initCuotaGrupos', fn: initCuotaGrupos },
+      { name: 'initMovimientos', fn: initMovimientos },
+      { name: 'initTiposProductos', fn: initTiposProducto },
+      { name: 'initProductos', fn: initProductos },
+      {name: 'initItemsXmovimiento', fn: initItemXmovimientos},
+      {name: 'initCategoriasXmovimiento', fn: initCategoriasXmovimiento},
+      {name: 'initSubcategoriasXmovimiento', fn: initSubcategoriasXmovimiento}
+
     ];
 
     connection = await getDb();

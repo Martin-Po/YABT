@@ -12,7 +12,7 @@ async function initUsers(client) {
       // Creamos la tabla (aquí ya no hace falta el IF NOT EXISTS porque ya chequeamos)
       await client.query(`
         CREATE TABLE users (
-          id            SERIAL PRIMARY KEY,
+          id                 UUID PRIMARY KEY DEFAULT gen_random_uuid(),
           username      VARCHAR(255) UNIQUE NOT NULL,
           nombre        VARCHAR(255) NOT NULL,
           apellido      VARCHAR(255) NOT NULL,
@@ -40,12 +40,12 @@ async function initUsers(client) {
       const userPassword = await bcrypt.hash('user456', 10);
 
       const queryInsert = `
-        INSERT INTO users (username, nombre, apellido, password_hash, role, estado) 
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO users (id, username, nombre, apellido, password_hash, role, estado) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
       `;
 
-      await client.query(queryInsert, ['admin', 'Admin', 'System', adminPassword, 'admin', 1]);
-      await client.query(queryInsert, ['user', 'Regular', 'User', userPassword, 'user', 1]);
+      await client.query(queryInsert, ['00000000-0000-0000-0000-000000000001', 'admin', 'Admin', 'System', adminPassword, 'admin', 1]);
+      await client.query(queryInsert, ['00000000-0000-0000-0000-000000000002', 'user', 'Regular', 'User', userPassword, 'user', 1]);
 
       logger.info('✅ Usuarios semilla creados.');
     } else {
